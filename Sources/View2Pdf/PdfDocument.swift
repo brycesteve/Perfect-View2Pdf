@@ -61,7 +61,7 @@ public class PdfDocument {
         do {
             pageFiles = try pages.map {
                 page in
-                let f = TemporaryFile(withPrefix: "View2Pdf")
+                let f = TemporaryFile(withPrefix: "View2Pdf", withExtension: "html")
                 try f.write(bytes: page.content.exportBytes(count: page.content.availableExportBytes))
                 return f
             }
@@ -83,7 +83,7 @@ public class PdfDocument {
         genArgs.append("-")
         
         let envs = [("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")]
-        let proc = try SysProcess("wkhtmltopdf", args: genArgs, env: envs)
+        let proc = try SysProcess("/usr/local/bin/wkhtmltopdf", args: genArgs, env: envs)
         
         let pdfData = Bytes()
         while true {
