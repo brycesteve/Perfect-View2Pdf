@@ -55,10 +55,8 @@ let document = PdfDocument(margins: 15)
 // Create a page from an HTML string.
 let page = PdfPage("<p>Page from HTML String</p>")
 
-// Create a page from a Leaf template with Context variables.
-let mustachePage = PdfPage(drop, view: "page_from_leaf_template", [
-  "firstName": "Peter",
-  "lastName": "Pan"
+// Create a page from a mustache template
+let mustachePage = PdfPage(TODO)
 ])
 
 // Add the pages to the document
