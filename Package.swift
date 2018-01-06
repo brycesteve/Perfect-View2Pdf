@@ -18,8 +18,9 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/PerfectlySoft/Perfect.git",
+            url: "https://github.com/PerfectlySoft/PerfectLib.git",
             from: "3.0.0"
+            
         )
     ],
     targets: [
