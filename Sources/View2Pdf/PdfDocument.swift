@@ -84,8 +84,12 @@ public class PdfDocument {
         genArgs.append("-")
         
         let envs = [("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")]
-        let proc = try SysProcess("/usr/local/bin/wkhtmltopdf", args: genArgs, env: envs)
-        
+        // These paths may not be universal
+        #if os(Linux)
+            let proc = try SysProcess("/usr/bin/wkhtmltopdf", args: genArgs, env: envs)
+        #else
+            let proc = try SysProcess("/usr/local/bin/wkhtmltopdf", args: genArgs, env: envs)
+        #endif
         let pdfData = Bytes()
         while true {
             do {
