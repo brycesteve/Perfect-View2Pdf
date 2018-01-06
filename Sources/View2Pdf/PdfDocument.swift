@@ -44,7 +44,7 @@ public class PdfDocument {
         bottomMargin = all ?? bottom ?? 20
         leftMargin = all ?? left ?? 20
         
-        LogFile.location = "/var/log/view2pdf.log"
+        LogFile.location = "./view2pdf.log"
         LogFile.debug("Created PDF Document")
     }
     
