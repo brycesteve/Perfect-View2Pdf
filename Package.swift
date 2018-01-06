@@ -21,12 +21,13 @@ let package = Package(
             url: "https://github.com/PerfectlySoft/PerfectLib.git",
             from: "3.0.0"
             
-        )
+        ),
+        .package(url: "https://github.com/PerfectlySoft/Perfect-Logger.git", from: "3.0.0")
     ],
     targets: [
         .target(
             name: "View2Pdf",
-            dependencies: ["PerfectLib"]),
+            dependencies: ["PerfectLib", "PerfectLogger"]),
         .testTarget(
             name: "View2PdfTests",
             dependencies: ["View2Pdf"]),

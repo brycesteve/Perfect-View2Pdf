@@ -7,6 +7,7 @@
 
 import Foundation
 import PerfectLib
+import PerfectLogger
 
 #if os(Linux)
     import SwiftGlibc
@@ -42,12 +43,16 @@ public class PdfDocument {
         rightMargin = all ?? right ?? 20
         bottomMargin = all ?? bottom ?? 20
         leftMargin = all ?? left ?? 20
+        
+        LogFile.location = "/var/log/view2pdf.log"
+        LogFile.debug("Created PDF Document")
     }
     
     /**
     Generates pdf data from document
     */
     public func toPdf() throws -> Bytes {
+        LogFile.debug("Starting pdf generation")
         var genArgs: [String] = [
             "--zoom", PdfDocument.zoom,
             "--quiet",
@@ -66,12 +71,14 @@ public class PdfDocument {
                 try f.write(bytes: page.content.exportBytes(count: page.content.availableExportBytes))
                 return f
             }
-            
+            LogFile.debug("Created Pages")
         }
         catch {
+            LogFile.error("Couldn't create temp files")
             throw PdfError.fileWriteError
         }
         defer {
+            LogFile.debug("Deleting Temp Files")
             pageFiles.forEach { (file) in
                 file.delete()
             }
@@ -82,6 +89,8 @@ public class PdfDocument {
         }))
         //Sets output to standard out
         genArgs.append("-")
+        LogFile.debug("Trying to convert with args:")
+        LogFile.debug(genArgs.joined(separator: "\n"))
         
         let envs = [("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")]
         // These paths may not be universal
@@ -99,14 +108,17 @@ public class PdfDocument {
                 pdfData.importBytes(from: s)
             }
             catch PerfectLib.PerfectError.fileError {
+                LogFile.error("Something went bad, failed to read from stdout")
                 throw PdfError.stdOutReadFailure
             }
         }
         let res = try proc.wait(hang: true)
         if res != 0 {
             let e = try proc.stderr?.readString()
+            LogFile.error("Failed to render pdf: \(e!)")
             throw PdfError.renderingError(res, e!)
         }
+        LogFile.debug("Pdf was created with \(pdfData.data.count) bytes")
         return pdfData
     }
 }

@@ -9,6 +9,9 @@ import Foundation
 import PerfectLib
 
 extension TemporaryFile {
+    /**
+     convenience init for TemporaryFile, for cases where file extension is required
+ */
     public convenience init(withPrefix: String, withExtension ext: String) {
         let template = withPrefix + "XXXXXX" + ".\(ext)"
         let utf8 = template.utf8
