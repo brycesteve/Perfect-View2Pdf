@@ -65,6 +65,9 @@ public class PdfDocument {
         #if os(Linux)
             //Linux using xvfb for headless running, so command becomes first arg
             genArgs.insert("/usr/bin/wkhtmltopdf", at: 0)
+            genArgs.insert("--server-args=\"-screen 0, 1024x768x24\"", at: 0)
+            genArgs.insert("-a", at: 0)
+            
         #endif
         var pageFiles = [File]()
         do {
