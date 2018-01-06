@@ -10,7 +10,9 @@ This project is intended to create PDF files from html strings using
 ## NOTE: This project is still in development
 #### Please do not use this module in your apps, as it is currently incomplete
 
-Install wkhtmltopdf on your server.
+Install wkhtmltopdf on your server. 
+
+NOTE: for linux servers, xvfb is also required, as wkhtmltopdf won't run headless without an X11 screen
 
 MacOS:
 ``` 
@@ -20,7 +22,8 @@ brew install wkhtmltopdf
 
 Linux:
 ```
-apt-get install wkhtmltopdf
+apt-get install wkhtmltopdf xvfb
+//xvfb required to allow headless running
 ```
 
 Configure Package.swift:
