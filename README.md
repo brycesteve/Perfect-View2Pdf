@@ -46,7 +46,31 @@ and then call `toPDF()`.
 
 
 ```
-TODO: Add example
+import View2Pdf
+
+// Create document. Margins in mm, can be set individually or all at once.
+// If no margins are set, the default is 20mm.
+let document = PdfDocument(margins: 15)
+
+// Create a page from an HTML string.
+let page = PdfPage("<p>Page from HTML String</p>")
+
+// Create a page from a Leaf template with Context variables.
+let mustachePage = PdfPage(drop, view: "page_from_leaf_template", [
+  "firstName": "Peter",
+  "lastName": "Pan"
+])
+
+// Add the pages to the document
+document.pages = [page, mustachePage]
+
+// Render to a PDF
+let pdf = try document.toPdf()
+
+// Now you can return the PDF as a response, if you want
+let response = Response(status: .ok, body: .data(pdf))
+response.headers["Content-Type"] = "application/pdf"
+return response
 ```
 
 ### Acknowledgements
