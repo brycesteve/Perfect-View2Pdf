@@ -47,7 +47,7 @@ public class PdfDocument {
     /**
     Generates pdf data from document
     */
-    public func toPdf(_ workingDirectory: String = "./webroot") throws -> Bytes {
+    public func toPdf() throws -> Bytes {
         var genArgs: [String] = [
             "--zoom", PdfDocument.zoom,
             "--quiet",
@@ -61,8 +61,8 @@ public class PdfDocument {
         do {
             pageFiles = try pages.map {
                 page in
-                //let f = TemporaryFile(withPrefix: "View2Pdf", withExtension: "html")
-                let f = File("\(workingDirectory)/View2Pdf\(UUID().uuidString).html")
+                let f = TemporaryFile(withPrefix: "View2Pdf", withExtension: "html")
+                //let f = File("\(workingDirectory)/View2Pdf\(UUID().uuidString).html")
                 try f.write(bytes: page.content.exportBytes(count: page.content.availableExportBytes))
                 return f
             }
