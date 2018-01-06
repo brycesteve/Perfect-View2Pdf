@@ -102,7 +102,7 @@ public class PdfDocument {
         let envs = [("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")]
         // These paths may not be universal
         #if os(Linux)
-            let proc = try SysProcess("xvfb-run", args: genArgs, env: envs)
+            let proc = try SysProcess("/usr/bin/xvfb-run", args: genArgs, env: envs)
         #else
             let proc = try SysProcess("/usr/local/bin/wkhtmltopdf", args: genArgs, env: envs)
         #endif
