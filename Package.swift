@@ -25,7 +25,7 @@ let package = Package(
     targets: [
         .target(
             name: "View2Pdf",
-            dependencies: []),
+            dependencies: ["PerfectLib"]),
         .testTarget(
             name: "View2PdfTests",
             dependencies: ["View2Pdf"]),
