@@ -60,7 +60,7 @@ public class PdfDocument {
             "-T", "\(topMargin)mm",
             "-R", "\(rightMargin)mm",
             "-B", "\(bottomMargin)mm",
-            "-L", "\(leftMargin)mm",
+            "-L", "\(leftMargin)mm", "--disable-smart-shrinking"
         ]
 //        #if os(Linux)
 //            //Linux using xvfb for headless running, so command becomes first arg
