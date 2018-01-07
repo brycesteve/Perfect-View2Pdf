@@ -5,6 +5,9 @@
 This project is intended to create PDF files from html strings using
 [wkhtmltopdf](http://wkhtmltopdf.org/).  There are also helpers to create pdf files straight from your mustache views.
 
+Css is mostly supported either inline, or from absolute urls.  Relative links can be problematic, as the files are rendered in a tmp directory.
+
+
 ## Quick Start
 
 ## NOTE: This project is still in development
@@ -12,7 +15,9 @@ This project is intended to create PDF files from html strings using
 
 Install wkhtmltopdf on your server. 
 
-NOTE: for linux servers, xvfb is also required, as wkhtmltopdf won't run headless without an X11 screen
+NOTE: The screen dpi affects pdf creation.  As I only use this for rendering from a linux server it works for what I need.
+If you want pdfs to render correctly on another os (macOS), then you will have to tweak your font sizes.
+For accurate layout, css percentaage widths are recommended
 
 MacOS:
 ``` 
@@ -22,10 +27,12 @@ brew install wkhtmltopdf
 
 Linux:
 ```
+//Linux apt-get package for wkhtmltopdf won't run headless, so this installer will install a version that will
 wget https://raw.githubusercontent.com/brycesteve/Perfect-View2Pdf/master/wkhtml_install.sh && chmod +x ./wkhtml_install.sh && ./wkhtml_install.sh
 
 //Whilst this isn't required to run, I have found that on Linux, for better rendering of pdf better fonts are required.  I installed Windows fonts with:
 sudo apt-get install ttf-mscorefonts-installer
+//However, this was a personal choice, and any other fonts may be installed to match your css.
 ```
 
 Configure Package.swift:

@@ -130,4 +130,21 @@ public class PdfDocument {
         LogFile.debug("Pdf was created with \(pdfData.data.count) bytes")
         return pdfData
     }
+    
+    /**
+     Save to pdf file
+     - Parameters:
+        - filename: The name of the file to save
+    */
+    public func toFile(filename: String) throws {
+        var file = File(filename)
+        do{
+            var pdfData = try self.toPdf()
+            try file.write(bytes: pdfData.exportBytes(count: pdfData.availableExportBytes))
+            file.close()
+        }
+        catch (let e){
+            throw e
+        }
+    }
 }

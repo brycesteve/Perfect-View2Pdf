@@ -12,4 +12,5 @@ public enum PdfError : Error {
     case fileWriteError
     case stdOutReadFailure
     case renderingError(Int32, String)
+    case unknownError
 }
