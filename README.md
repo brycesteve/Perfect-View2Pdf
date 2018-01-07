@@ -23,6 +23,9 @@ brew install wkhtmltopdf
 Linux:
 ```
 wget https://raw.githubusercontent.com/brycesteve/Perfect-View2Pdf/master/wkhtml_install.sh && chmod +x ./wkhtml_install.sh && ./wkhtml_install.sh
+
+//Whilst this isn't required to run, I have found that on Linux, for better rendering of pdf better fonts are required.  I installed Windows fonts with:
+sudo apt-get install ttf-mscorefonts-installer
 ```
 
 Configure Package.swift:
