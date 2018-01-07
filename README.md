@@ -59,7 +59,7 @@ To create a PDF from a html string, create and configure a `PdfDocument`, add on
 and then call `toPDF()`.
 
 
-```
+``` swift
 import View2Pdf
 
 // Create document. Margins in mm, can be set individually or all at once.
@@ -88,7 +88,7 @@ Two helpers are available for Perfect-Mustache to return a pdf file in your Requ
 
 One will return a pdf view, and the other will return a pdf file download.
 
-```
+``` swift
 import View2Pdf
 
 //Create context if required
@@ -103,7 +103,7 @@ try? response.renderPdfView(template: "/test/pdf", context: ctx)
 
 ```
 
-Context is optional.  There is a further parameter for these helpers "documentRoot".  This defaults to "./webroot", you only need to use this, if you use something other than webroot for you mustache templates.
+`context` is optional.  There is a further parameter for these helpers `documentRoot`.  This defaults to "./webroot", you only need to use this, if you use something other than webroot for you mustache templates.
 
 
 ### Acknowledgements
