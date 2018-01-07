@@ -22,7 +22,7 @@ brew install wkhtmltopdf
 
 Linux:
 ```
-bash < (wget https://github.com/brycesteve/Perfect-View2Pdf/wkhtml_install.sh)
+wget https://raw.githubusercontent.com/brycesteve/Perfect-View2Pdf/master/wkhtml_install.sh && chmod +x ./wkhtml_install.sh && ./wkhtml_install.sh
 ```
 
 Configure Package.swift:
