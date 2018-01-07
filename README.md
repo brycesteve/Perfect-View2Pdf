@@ -82,7 +82,7 @@ response.setBody(bytes: (pdf.exportBytes(count: (pdf.availableExportBytes))))
 response.completed()
 ```
 
-###Mustache Helpers
+### Mustache Helpers
 
 Two helpers are available for Perfect-Mustache to return a pdf file in your RequestHandler
 
