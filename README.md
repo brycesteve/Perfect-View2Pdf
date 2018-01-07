@@ -22,8 +22,7 @@ brew install wkhtmltopdf
 
 Linux:
 ```
-apt-get install wkhtmltopdf xvfb
-//xvfb required to allow headless running
+bash < (wget https://github.com/brycesteve/Perfect-View2Pdf/wkhtml_install.sh)
 ```
 
 Configure Package.swift:
