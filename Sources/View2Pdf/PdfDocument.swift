@@ -99,7 +99,7 @@ public class PdfDocument {
         LogFile.debug("Trying to convert with args:")
         LogFile.debug(genArgs.joined(separator: "\n"))
         
-        let envs = [("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"),("DISPLAY",":0")]
+        let envs = [("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")]
         // These paths may not be universal
         #if os(Linux)
             let proc = try SysProcess("/usr/bin/wkhtml2pdf", args: genArgs, env: envs)
