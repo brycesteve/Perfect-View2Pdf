@@ -8,16 +8,18 @@ This project is intended to create PDF files from html strings using
 Css is mostly supported either inline, or from absolute urls.  Relative links can be problematic, as the files are rendered in a tmp directory.
 
 
-## Quick Start
+## Versions
+First working release is tagged "1.1.0"
 
-## NOTE: This project is still in development
-#### Please do not use this module in your apps, as it is currently incomplete
+_This module was created to satisfy a requirement for my project. If you find any bugs, or it doesn't satisfy your needs, then please feel free to modify it._
+
+# Quick Start
 
 Install wkhtmltopdf on your server. 
 
 NOTE: The screen dpi affects pdf creation.  As I only use this for rendering from a linux server it works for what I need.
 If you want pdfs to render correctly on another os (macOS), then you will have to tweak your font sizes.
-For accurate layout, css percentaage widths are recommended
+For accurate layout, css percentage widths are recommended
 
 MacOS:
 ``` 
@@ -38,7 +40,7 @@ sudo apt-get install ttf-mscorefonts-installer
 Configure Package.swift:
 
 ``` swift
-.package(url: "https://github.com/brycesteve/Perfect-View2Pdf.git", from: "1.0.0")
+.package(url: "https://github.com/brycesteve/Perfect-View2Pdf.git", from: "1.1.0")
 
 ...
 
@@ -53,7 +55,7 @@ Import library into your code:
 import View2Pdf
 ```
 
-To create a PDF from a view, create and configure a `PdfDocument`, add one or more `PdfPage`s,
+To create a PDF from a html string, create and configure a `PdfDocument`, add one or more `PdfPage`s,
 and then call `toPDF()`.
 
 
@@ -67,21 +69,42 @@ let document = PdfDocument(margins: 15)
 // Create a page from an HTML string.
 let page = PdfPage("<p>Page from HTML String</p>")
 
-// Create a page from a mustache template
-let mustachePage = PdfPage(TODO)
-])
-
 // Add the pages to the document
-document.pages = [page, mustachePage]
+document.pages = [page]
 
 // Render to a PDF
 let pdf = try document.toPdf()
 
-// Now you can return the PDF as a response, if you want
-let response = Response(status: .ok, body: .data(pdf))
-response.headers["Content-Type"] = "application/pdf"
-return response
+// Now you can return the PDF as a response
+response.addHeader(HTTPResponseHeader.Name.contentType, value: "application/pdf")
+response.status = .ok
+response.setBody(bytes: (pdf.exportBytes(count: (pdf.availableExportBytes))))
+response.completed()
 ```
+
+###Mustache Helpers
+
+Two helpers are available for Perfect-Mustache to return a pdf file in your RequestHandler
+
+One will return a pdf view, and the other will return a pdf file download.
+
+```
+import View2Pdf
+
+//Create context if required
+var ctx = [String:Any]()
+ctx["pageTitle"] = "Home"
+
+try? response.renderPdfFile(template: "/test/pdf", downloadFileName: "test.pdf", context: ctx)
+
+//OR
+
+try? response.renderPdfView(template: "/test/pdf", context: ctx)
+
+```
+
+Context is optional.  There is a further parameter for these helpers "documentRoot".  This defaults to "./webroot", you only need to use this, if you use something other than webroot for you mustache templates.
+
 
 ### Acknowledgements
 

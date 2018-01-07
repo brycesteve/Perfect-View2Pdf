@@ -137,9 +137,9 @@ public class PdfDocument {
         - filename: The name of the file to save
     */
     public func toFile(filename: String) throws {
-        var file = File(filename)
+        let file = File(filename)
         do{
-            var pdfData = try self.toPdf()
+            let pdfData = try self.toPdf()
             try file.write(bytes: pdfData.exportBytes(count: pdfData.availableExportBytes))
             file.close()
         }
