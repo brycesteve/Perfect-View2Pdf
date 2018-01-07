@@ -62,13 +62,13 @@ public class PdfDocument {
             "-B", "\(bottomMargin)mm",
             "-L", "\(leftMargin)mm",
         ]
-        #if os(Linux)
-            //Linux using xvfb for headless running, so command becomes first arg
-            genArgs.insert("/usr/bin/wkhtmltopdf", at: 0)
-            genArgs.insert("--server-args=\"-screen 0, 1024x768x24\"", at: 0)
-            genArgs.insert("-a", at: 0)
-            
-        #endif
+//        #if os(Linux)
+//            //Linux using xvfb for headless running, so command becomes first arg
+//            genArgs.insert("/usr/bin/wkhtmltopdf", at: 0)
+//            genArgs.insert("--server-args=\"-screen 0, 1024x768x24\"", at: 0)
+//            genArgs.insert("-a", at: 0)
+//
+//        #endif
         var pageFiles = [File]()
         do {
             pageFiles = try pages.map {
@@ -99,10 +99,10 @@ public class PdfDocument {
         LogFile.debug("Trying to convert with args:")
         LogFile.debug(genArgs.joined(separator: "\n"))
         
-        let envs = [("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")]
+        let envs = [("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"),("DISPLAY",":0")]
         // These paths may not be universal
         #if os(Linux)
-            let proc = try SysProcess("/usr/bin/xvfb-run", args: genArgs, env: envs)
+            let proc = try SysProcess("/usr/bin/wkhtml2pdf", args: genArgs, env: envs)
         #else
             let proc = try SysProcess("/usr/local/bin/wkhtmltopdf", args: genArgs, env: envs)
         #endif
