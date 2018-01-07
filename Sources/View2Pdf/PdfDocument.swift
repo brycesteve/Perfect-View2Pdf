@@ -54,7 +54,7 @@ public class PdfDocument {
     public func toPdf() throws -> Bytes {
         LogFile.debug("Starting pdf generation")
         var genArgs: [String] = [
-            "--zoom", PdfDocument.zoom,
+            /*"--zoom", PdfDocument.zoom,*/
             "--quiet",
             "-s", paperSize,
             "-T", "\(topMargin)mm",
